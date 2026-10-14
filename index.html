@@ -3,11 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colisión de Círculos - ITP</title>
-    <link rel="stylesheet" href="colision.css">
+    <title>Detección de Colisiones - Master Edition | ITP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #07090e;
+            font-family: 'Fira Code', monospace;
+            cursor: crosshair;
+        }
+
+        /* Contenedor del título de fondo (Watermark centrado) */
+        .bg-title-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-title {
+            font-size: clamp(2rem, 6vw, 7.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(99, 102, 241, 0.08) 50%, rgba(236, 72, 153, 0.05) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            user-select: none;
+            animation: pulseTitle 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseTitle {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.03); opacity: 1; }
+        }
+
+        /* Panel HUD flotante de desarrollador */
+        .dev-hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(13, 17, 23, 0.88);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            backdrop-filter: blur(12px);
+            padding: 12px 18px;
+            border-radius: 12px;
+            color: #e2e8f0;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.15);
+            pointer-events: none;
+        }
+
+        .hud-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #38bdf8;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .hud-info {
+            font-size: 10px;
+            color: #94a3b8;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .hud-info b {
+            color: #34d399;
+        }
+
+        #collision-count {
+            color: #f43f5e;
+        }
+
+        .hud-tip {
+            font-size: 9px;
+            color: #fbbf24;
+            margin-top: 3px;
+        }
+
+        /* Canvas cubriendo toda la pantalla sin dejar espacios en blanco */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            display: block;
+            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0a0f1d 70%, #020617 100%);
+        }
+    </style>
 </head>
 <body>
+    <!-- Título de fondo inmersivo -->
+    <div class="bg-title-container">
+        <h1 class="bg-title">Detección de colisiones</h1>
+    </div>
+
+    <!-- Panel HUD Profesional -->
+    <div class="dev-hud">
+        <div class="hud-title">⚡ Canvas Physics & Collision Master v4.0</div>
+        <div class="hud-info">
+            <span>Arquitectura: POO + Vectores + Partículas</span>
+            <span>Círculos Activos: <b id="circles-count">20</b></span>
+            <span>Colisiones Detectadas: <b id="collision-count">0</b></span>
+            <span class="hud-tip">💡 Haz clic para crear círculos</span>
+        </div>
+    </div>
+
     <canvas id="canvas"></canvas>
+
     <script src="colision.js"></script>
 </body>
 </html>
