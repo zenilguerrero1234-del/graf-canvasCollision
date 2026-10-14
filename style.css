@@ -1,116 +1,116 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body, html {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #07090e;
-    font-family: 'Fira Code', monospace;
-    cursor: crosshair;
-}
-
-/* Contenedor y diseño del Título de Fondo Increíble */
-.bg-title-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1; /* Ubicado en el fondo absoluto */
-    pointer-events: none; /* Permite hacer clic a través del texto hacia el canvas */
-    overflow: hidden;
-}
-
-.bg-title {
-    font-size: clamp(2.5rem, 6.5vw, 8.5rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 6px;
-    text-align: center;
-    background: linear-gradient(135deg, rgba(56, 189, 248, 0.14) 0%, rgba(99, 102, 241, 0.09) 50%, rgba(236, 72, 153, 0.06) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 50px rgba(56, 189, 248, 0.08);
-    user-select: none;
-    animation: pulseTitle 6s ease-in-out infinite alternate;
-}
-
-@keyframes pulseTitle {
-    0% {
-        transform: scale(1);
-        opacity: 0.65;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-    100% {
-        transform: scale(1.035);
-        opacity: 1;
+
+    body, html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #07090e;
+        font-family: 'Fira Code', monospace;
+        cursor: crosshair;
     }
-}
 
-/* Panel HUD de Diagnóstico */
-.dev-hud {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 10;
-    background: rgba(13, 17, 23, 0.88);
-    border: 1px solid rgba(56, 189, 248, 0.4);
-    backdrop-filter: blur(12px);
-    padding: 15px 22px;
-    border-radius: 12px;
-    color: #e2e8f0;
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.15);
-    pointer-events: none;
-}
+    /* Contenedor y diseño del Título de Fondo Increíble */
+    .bg-title-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1; /* Ubicado en el fondo absoluto */
+        pointer-events: none; /* Permite hacer clic a través del texto hacia el canvas */
+        overflow: hidden;
+    }
 
-.hud-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: #38bdf8;
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
-}
+    .bg-title {
+        font-size: clamp(2.5rem, 6.5vw, 8.5rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 6px;
+        text-align: center;
+        background: linear-gradient(135deg, rgba(56, 189, 248, 0.14) 0%, rgba(99, 102, 241, 0.09) 50%, rgba(236, 72, 153, 0.06) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 50px rgba(56, 189, 248, 0.08);
+        user-select: none;
+        animation: pulseTitle 6s ease-in-out infinite alternate;
+    }
 
-.hud-info {
-    font-size: 11px;
-    color: #94a3b8;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
+    @keyframes pulseTitle {
+        0% {
+            transform: scale(1);
+            opacity: 0.65;
+        }
+        100% {
+            transform: scale(1.035);
+            opacity: 1;
+        }
+    }
 
-.hud-info b {
-    color: #34d399;
-}
+    /* Panel HUD de Diagnóstico */
+    .dev-hud {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+        background: rgba(13, 17, 23, 0.88);
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        backdrop-filter: blur(12px);
+        padding: 15px 22px;
+        border-radius: 12px;
+        color: #e2e8f0;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.15);
+        pointer-events: none;
+    }
 
-#collision-count {
-    color: #f43f5e;
-}
+    .hud-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #38bdf8;
+        margin-bottom: 8px;
+        letter-spacing: 0.5px;
+    }
 
-.hud-tip {
-    font-size: 10px;
-    color: #fbbf24;
-    margin-top: 4px;
-}
+    .hud-info {
+        font-size: 11px;
+        color: #94a3b8;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
 
-/* Canvas interactivo ubicado sobre el título con transparencia para efecto de estela */
-canvas {
-    position: relative;
-    z-index: 2;
-    display: block;
-    background: transparent;
-}
+    .hud-info b {
+        color: #34d399;
+    }
 
-body {
-    background: 
-        radial-gradient(circle at 50% 50%, #1e293b 0%, #0a0f1d 70%, #020617 100%),
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-    background-size: 100% 100%, 50px 50px, 50px 50px;
-}
+    #collision-count {
+        color: #f43f5e;
+    }
+
+    .hud-tip {
+        font-size: 10px;
+        color: #fbbf24;
+        margin-top: 4px;
+    }
+
+    /* Canvas interactivo ubicado sobre el título con transparencia para efecto de estela */
+    canvas {
+        position: relative;
+        z-index: 2;
+        display: block;
+        background: transparent;
+    }
+
+    body {
+        background: 
+            radial-gradient(circle at 50% 50%, #1e293b 0%, #0a0f1d 70%, #020617 100%),
+            linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        background-size: 100% 100%, 50px 50px, 50px 50px;
+    }
