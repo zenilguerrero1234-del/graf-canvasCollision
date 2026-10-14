@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detección de Colisiones - Master Edition | ITP</title>
+    <title>Detección de Colisiones - Engine Pro Edition | ITP</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -21,7 +21,7 @@
             cursor: crosshair;
         }
 
-        /* Contenedor del título de fondo (Watermark centrado) */
+        /* Título de fondo estilizado */
         .bg-title-container {
             position: absolute;
             top: 0;
@@ -54,20 +54,19 @@
             100% { transform: scale(1.03); opacity: 1; }
         }
 
-        /* Panel HUD flotante de desarrollador */
+        /* Panel HUD Profesional con controles interactivos */
         .dev-hud {
             position: absolute;
             top: 20px;
             left: 20px;
             z-index: 10;
-            background: rgba(13, 17, 23, 0.88);
+            background: rgba(13, 17, 23, 0.9);
             border: 1px solid rgba(56, 189, 248, 0.4);
             backdrop-filter: blur(12px);
-            padding: 12px 18px;
+            padding: 14px 18px;
             border-radius: 12px;
             color: #e2e8f0;
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.15);
-            pointer-events: none;
         }
 
         .hud-title {
@@ -84,23 +83,51 @@
             display: flex;
             flex-direction: column;
             gap: 3px;
+            margin-bottom: 10px;
         }
 
         .hud-info b {
             color: #34d399;
         }
 
+        #fps-counter {
+            color: #facc15;
+        }
+
         #collision-count {
             color: #f43f5e;
+        }
+
+        /* Botones de control profesional estilo UI/UX moderna */
+        .hud-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-ctrl {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+            padding: 5px 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-ctrl:hover {
+            background: rgba(56, 189, 248, 0.3);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
         }
 
         .hud-tip {
             font-size: 9px;
             color: #fbbf24;
-            margin-top: 3px;
+            margin-top: 8px;
         }
 
-        /* Canvas cubriendo toda la pantalla sin dejar espacios en blanco */
         canvas {
             position: absolute;
             top: 0;
@@ -114,20 +141,23 @@
     </style>
 </head>
 <body>
-    <!-- Título de fondo inmersivo -->
     <div class="bg-title-container">
         <h1 class="bg-title">Detección de colisiones</h1>
     </div>
 
-    <!-- Panel HUD Profesional -->
+    <!-- Panel HUD con monitor de rendimiento y botones interactivos -->
     <div class="dev-hud">
-        <div class="hud-title">⚡ Canvas Physics & Collision Master v4.0</div>
+        <div class="hud-title">⚡ Canvas Physics Engine v5.0</div>
         <div class="hud-info">
-            <span>Arquitectura: POO + Vectores + Partículas</span>
+            <span>Rendimiento FPS: <b id="fps-counter">60</b></span>
             <span>Círculos Activos: <b id="circles-count">20</b></span>
-            <span>Colisiones Detectadas: <b id="collision-count">0</b></span>
-            <span class="hud-tip">💡 Haz clic para crear círculos</span>
+            <span>Colisiones Activas: <b id="collision-count">0</b></span>
         </div>
+        <div class="hud-controls">
+            <button id="btn-pause" class="btn-ctrl">⏸️ Pausar</button>
+            <button id="btn-reset" class="btn-ctrl">🔄 Reiniciar</button>
+        </div>
+        <div class="hud-tip">💡 Clic en pantalla para añadir objetos</div>
     </div>
 
     <canvas id="canvas"></canvas>

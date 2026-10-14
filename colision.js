@@ -1,14 +1,50 @@
 const canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d"); 
 
-const window_height = window.innerHeight; 
-const window_width = window.innerWidth; 
+let window_height = window.innerHeight; 
+let window_width = window.innerWidth; 
 
 canvas.height = window_height; 
 canvas.width = window_width; 
 
 const collisionCountEl = document.getElementById("collision-count");
 const circlesCountEl = document.getElementById("circles-count");
+const fpsCounterEl = document.getElementById("fps-counter");
+const btnPause = document.getElementById("btn-pause");
+const btnReset = document.getElementById("btn-reset");
+
+let isPaused = false;
+let circles = [];
+let particles = [];
+
+// Control de rendimiento (FPS)
+let lastTime = performance.now();
+let frameCount = 0;
+let fpsTimer = 0;
+
+// Botón Pausar / Reanudar
+btnPause.addEventListener("click", () => {
+    isPaused = !isPaused;
+    btnPause.textContent = isPaused ? "▶️ Reanudar" : "⏸️ Pausar";
+    if (!isPaused) {
+        requestAnimationFrame(animate);
+    }
+});
+
+// Botón Reiniciar simulación
+btnReset.addEventListener("click", () => {
+    circles = [];
+    particles = [];
+    generateCircles(20);
+});
+
+// Soporte Responsive: Ajustar canvas si el usuario cambia el tamaño de la ventana
+window.addEventListener("resize", () => {
+    window_height = window.innerHeight;
+    window_width = window.innerWidth;
+    canvas.height = window_height;
+    canvas.width = window_width;
+});
 
 class Particle {
     constructor(x, y, color) {
@@ -122,9 +158,6 @@ class Circle {
     } 
 } 
 
-let circles = []; 
-let particles = [];
-
 function generateCircles(n) { 
     for (let i = 0; i < n; i++) { 
         let radius = Math.random() * 20 + 20; 
@@ -139,8 +172,9 @@ function generateCircles(n) {
     if (circlesCountEl) circlesCountEl.textContent = circles.length;
 } 
 
+// Interactividad por clics (evita activarse si se da clic sobre el HUD)
 window.addEventListener("click", (event) => {
-    if (event.clientX < 320 && event.clientY < 160) return;
+    if (event.clientX < 260 && event.clientY < 180) return;
 
     let radius = Math.random() * 20 + 20;
     let color = `#${Math.floor(Math.random()*16777215).toString(16)}`;
@@ -215,7 +249,17 @@ function handleCollisions() {
     }
 }
 
-function animate() { 
+function animate(currentTime) { 
+    if (isPaused) return;
+
+    // Cálculo profesional de FPS (Fotogramas por Segundo)
+    frameCount++;
+    if (currentTime - fpsTimer >= 1000) {
+        if (fpsCounterEl) fpsCounterEl.textContent = frameCount;
+        frameCount = 0;
+        fpsTimer = currentTime;
+    }
+
     ctx.fillStyle = 'rgba(7, 9, 14, 0.25)';
     ctx.fillRect(0, 0, window_width, window_height); 
     
@@ -235,5 +279,5 @@ function animate() {
     requestAnimationFrame(animate); 
 } 
 
-generateCircles(20); 
-animate();
+generateCircles(20);
+requestAnimationFrame(animate);
