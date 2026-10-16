@@ -4,59 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#070b18">
+
     <title>Detección de colisiones | Canvas Physics Engine 2.5</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <script src="colision.js" defer></script>
 </head>
+
 <body>
+
     <div class="bg-title-container" aria-hidden="true">
         <h1 class="bg-title">Detección de colisiones</h1>
         <p class="bg-subtitle">INTERACTIVE 2D PHYSICS</p>
     </div>
 
     <section class="dev-hud" aria-label="Panel de rendimiento">
+
         <div class="hud-heading">
             <span class="live-dot" aria-hidden="true"></span>
+
             <span class="hud-title">CANVAS PHYSICS ENGINE</span>
+
             <span class="version-tag">v2.5</span>
         </div>
 
         <div class="hud-info">
+
             <div class="metric">
                 <span>Rendimiento FPS</span>
                 <strong id="fps-counter">--</strong>
             </div>
+
             <div class="metric">
                 <span>Objetos activos</span>
                 <strong id="circles-count">25</strong>
             </div>
+
             <div class="metric">
                 <span>Nivel de velocidad</span>
-                <strong id="speed-level" class="speed-initial">Inicial</strong>
+                <strong id="speed-level" class="speed-initial">
+                    Inicial
+                </strong>
             </div>
+
         </div>
 
         <div class="hud-controls">
-            <button id="btn-pause" class="btn-ctrl" type="button">⏸ Pausar</button>
-            <button id="btn-reset" class="btn-ctrl btn-reset" type="button">↻ Reiniciar</button>
+
+            <button id="btn-pause" class="btn-ctrl" type="button">
+                ⏸ Pausar
+            </button>
+
+            <button id="btn-reset" class="btn-ctrl btn-reset" type="button">
+                ↻ Reiniciar
+            </button>
+
         </div>
-        <p class="hud-tip">Clic izquierdo sobre un cristal para eliminarlo.</p>
+
+        <p class="hud-tip">
+            Clic izquierdo sobre un cristal para eliminarlo.
+        </p>
+
     </section>
 
     <section class="score-panel" aria-label="Contador de objetos eliminados">
+
         <span class="score-label">IMPACTOS REGISTRADOS</span>
+
         <strong id="collision-count" aria-live="polite">0</strong>
+
         <span class="score-caption">Objetos eliminados con clic</span>
+
     </section>
 
-    <canvas id="canvas" aria-label="Área interactiva con 25 cristales animados"></canvas>
+    <canvas
+        id="canvas"
+        aria-label="Área interactiva con 25 cristales animados">
+    </canvas>
 
     <div class="bottom-hint" aria-hidden="true">
         <span class="hint-key">CLICK</span>
         <span>apunta · impacta · suma puntos</span>
     </div>
+
 </body>
 </html>
